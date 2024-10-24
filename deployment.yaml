@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asgpnt-deployment
+  labels:
+    app: asgpnt
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: asgpnt
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: asgpnt
+    spec:
+      containers:
+      - name: asgpnt-container
+        image: sancaprince13/dockerexer:v0.1
+        ports:
+        - containerPort: 8080 
